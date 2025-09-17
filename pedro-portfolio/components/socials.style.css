@@ -1,0 +1,17 @@
+.socials {
+  display: flex;
+  gap: 4rem;
+  margin-top: 1rem;
+  list-style: none;
+}
+
+.socials a {
+  font-size: 2.5rem;
+  color: var(--text);
+  transition: transform 0.2s ease, color 0.2s ease;
+}
+
+.socials a:hover {
+  transform: scale(1.2);
+  color: var(--primary);
+}
