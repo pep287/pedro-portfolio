@@ -1,0 +1,50 @@
+.cardsContainer {
+  display: flex;
+  gap: 2rem;
+  justify-content: center;
+  margin: 2rem 0;
+  flex-wrap: wrap;
+}
+
+.card {
+  background: #1a202c;
+  color: #fff;
+  border-radius: 1rem;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.12);
+  padding: 2rem 1.5rem;
+  min-width: 220px;
+  max-width: 300px;
+  flex: 1 1 220px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.card h2 {
+  margin-bottom: 1rem;
+  font-size: 1.4rem;
+  color: #63b3ed;
+}
+
+.card ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.card li {
+  margin-bottom: 0.8rem;
+  font-size: 1rem;
+}
+
+.card strong {
+  color: #f6e05e;
+}
+.link {
+  color: #63b3ed;
+  text-decoration: underline;
+  transition: color 0.2s;
+}
+.link:hover {
+  color: #f6e05e;
+}
