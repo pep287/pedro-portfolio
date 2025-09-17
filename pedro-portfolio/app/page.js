@@ -1,6 +1,7 @@
 import Image from "next/image";
 import styles from "./page.module.css";
 import Socials from "../components/Socials";
+import Languages from "../components/Languages";
 export default function Home() {
   return (
     <main className={styles.container}>
@@ -22,6 +23,9 @@ export default function Home() {
       </p>
       <div className={styles.socials}>
         <Socials />
+      </div>
+      <div className={styles.Languages}>
+        <Languages />
       </div>
     </main>
   );

@@ -1,10 +1,10 @@
-import styles from "./socials.style.css";
+import styles from "./socials.module.css";
 import { FaLinkedin, FaGithub } from "react-icons/fa";
 export default function Socials() {
   return (
     <div>
       <h2>Redes Sociais</h2>
-      <ul className="socials">
+      <ul className={styles.socials}>
         <li>
           <a
             href="https://github.com/pep287"
