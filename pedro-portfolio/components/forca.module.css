@@ -54,12 +54,20 @@
   border-radius: 0.5rem;
   padding: 0.4rem 1rem;
   font-size: 1rem;
+  font-weight: bold;
   cursor: pointer;
-  transition: background 0.2s;
+  box-shadow: var(--card-shadow);
+  transition: background 0.2s, color 0.2s;
+}
+
+.buttonForca:hover:not(:disabled) {
+  background: #4299e1;
+  color: #fff;
 }
 
 .buttonForca:disabled {
   background: #555;
+  color: #ccc;
   cursor: not-allowed;
 }
 
@@ -75,6 +83,13 @@
   color: #f6e05e;
 }
 
+.letra {
+  min-width: 1.5rem;
+  text-align: center;
+  font-weight: bold;
+  color: var(--primary);
+}
+
 @media (max-width: 500px) {
   .forcaContainer {
     max-width: 95vw;
@@ -83,4 +98,35 @@
   .wordDisplay {
     font-size: 1.3rem;
   }
+}
+
+.correctAttempt {
+  color: #63b3ed;
+  font-weight: bold;
+}
+
+.wrongAttempt {
+  color: #e53e3e;
+  font-weight: bold;
+}
+.victoryMessage {
+  color: #63b3ed;
+  font-weight: bold;
+  margin-bottom: 1rem;
+}
+
+.defeatMessage {
+  color: #e53e3e;
+  font-weight: bold;
+  margin-bottom: 1rem;
+}
+
+.wordReveal {
+  color: #f6e05e;
+}
+
+.errorMessage {
+  color: #e53e3e;
+  margin-bottom: 0.5rem;
+  font-weight: bold;
 }

@@ -1,6 +1,7 @@
-"use client"; // 👈 precisa ser a primeira linha
+"use client";
 
 import { useState } from "react";
+import styles from "./forca.module.css";
 
 const WORD = "PORTFOLIO";
 const MAX_ATTEMPTS = 6;
@@ -8,61 +9,108 @@ const MAX_ATTEMPTS = 6;
 export default function Forca() {
   const [attempts, setAttempts] = useState([]);
   const [input, setInput] = useState("");
-  const [wrongCount, setWrongCount] = useState(0);
+  const [errors, setErrors] = useState(0);
+  const [message, setMessage] = useState("");
+
+  const isWinner = WORD.split("").every((letter) => attempts.includes(letter));
+  const isLoser = errors >= MAX_ATTEMPTS;
+
+  function handleTry(e) {
+    e.preventDefault();
+    const attempt = input.toUpperCase();
+
+    if (!attempt.match(/^[A-Z]$/)) {
+      setMessage("Digite apenas letras.");
+      return;
+    }
+    if (attempts.includes(attempt)) {
+      setMessage("Você já tentou essa letra. Escolha outra.");
+      return;
+    }
+    setMessage("");
+    setAttempts([...attempts, attempt]);
+    if (!WORD.includes(attempt)) setErrors(errors + 1);
+    setInput("");
+  }
+
+  function handleRestart() {
+    setAttempts([]);
+    setInput("");
+    setErrors(0);
+    setMessage("");
+  }
 
   const displayWord = WORD.split("").map((letter, idx) =>
     attempts.includes(letter) ? (
-      <span key={idx} style={{ margin: "0 8px", fontSize: "2rem" }}>
+      <span key={idx} className={styles.letra}>
         {letter}
       </span>
     ) : (
-      <span key={idx} style={{ margin: "0 8px", fontSize: "2rem" }}>
+      <span key={idx} className={styles.letra}>
         _
       </span>
     )
   );
 
-  function handleTry(e) {
-    e.preventDefault();
-    const guess = input.toUpperCase();
-    if (!guess || attempts.includes(guess)) return;
-    setAttempts([...attempts, guess]);
-    if (!WORD.includes(guess)) setWrongCount(wrongCount + 1);
-    setInput("");
-  }
-
   return (
-    <div
-      style={{
-        background: "#23272f",
-        padding: "2rem",
-        borderRadius: "1rem",
-        color: "#ededed",
-        maxWidth: "400px",
-        margin: "2rem auto",
-      }}
-    >
-      <h2>Jogo da Forca</h2>
-      <div style={{ marginBottom: "1rem" }}>{displayWord}</div>
-      <form onSubmit={handleTry}>
+    <div className={styles.forcaContainer}>
+      <h2 className={styles.forcaTitle}>Jogo da Forca</h2>
+      <div className={styles.wordDisplay}>{displayWord}</div>
+      {isWinner && (
+        <div className={styles.victoryMessage}>Parabéns! Você venceu!</div>
+      )}
+      {isLoser && (
+        <div className={styles.defeatMessage}>
+          Você perdeu! A palavra era:{" "}
+          <span className={styles.wordReveal}>{WORD}</span>
+        </div>
+      )}
+      <form onSubmit={handleTry} className={styles.formForca}>
         <input
           type="text"
           maxLength={1}
           value={input}
           onChange={(e) => setInput(e.target.value)}
-          style={{ width: "40px", textAlign: "center", fontSize: "1.5rem" }}
-          disabled={wrongCount >= MAX_ATTEMPTS}
+          className={styles.inputForca}
+          disabled={isWinner || isLoser}
         />
-        <button type="submit" disabled={wrongCount >= MAX_ATTEMPTS || !input}>
+        <button
+          type="submit"
+          className={styles.buttonForca}
+          disabled={isWinner || isLoser || !input}
+        >
           Tentar
         </button>
       </form>
-      <div style={{ marginTop: "1rem" }}>
-        <strong>Tentativas anteriores:</strong> {attempts.join(", ")}
+      {message && <div className={styles.errorMessage}>{message}</div>}
+      <div className={styles.attemptsList}>
+        <strong>Tentativas anteriores:</strong>{" "}
+        {attempts.map((letter, idx) => (
+          <span
+            key={idx}
+            className={
+              WORD.includes(letter)
+                ? styles.correctAttempt
+                : styles.wrongAttempt
+            }
+          >
+            {letter}
+            {idx < attempts.length - 1 ? ", " : ""}
+          </span>
+        ))}
       </div>
-      <div style={{ marginTop: "0.5rem" }}>
-        <strong>Tentativas restantes:</strong> {MAX_ATTEMPTS - wrongCount}
+      <div className={styles.remainingAttempts}>
+        <strong>Tentativas restantes:</strong> {MAX_ATTEMPTS - errors}
       </div>
+      {(isWinner || isLoser) && (
+        <button
+          type="button"
+          className={styles.buttonForca}
+          onClick={handleRestart}
+        >
+          Reiniciar Jogo
+        </button>
+      )}
     </div>
   );
 }
