@@ -1,4 +1,5 @@
 import Image from "next/image";
+import Link from "next/link";
 import styles from "./page.module.css";
 import Socials from "../components/Socials";
 import Languages from "../components/Languages";
@@ -38,6 +39,13 @@ export default function Home() {
           <Projects />
         </div>
       </section>
+      <div className={styles.forcaButtonWrapper}>
+        <Link href="/forca" passHref>
+          <button className={styles.forcaButton}>
+            Ir para o Jogo da Forca
+          </button>
+        </Link>
+      </div>
     </main>
   );
 }
