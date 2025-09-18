@@ -1,3 +1,4 @@
+// ...existing code...
 "use client";
 
 import { useState } from "react";
@@ -42,7 +43,6 @@ const WORDS = [
   "VIOLINO",
   "PIRATA",
   "CIRCO",
-  "ELEFANTE",
   "SORVETE",
   "PRINCESA",
   "AVIÃO",
@@ -76,8 +76,8 @@ export default function Forca() {
     e.preventDefault();
     const attempt = input.toUpperCase();
 
-    if (!attempt.match(/^[A-ZÁÀÂÃÉÈÊÍÏÓÔÕÖÚÇÑ]$/)) {
-      setMessage("Digite apenas letras.");
+    if (!attempt.match(/^[A-Z]$/)) {
+      setMessage("Digite apenas letras de A a Z.");
       return;
     }
     if (attempts.includes(attempt)) {
@@ -85,8 +85,20 @@ export default function Forca() {
       return;
     }
     setMessage("");
-    setAttempts([...attempts, attempt]);
-    if (!word.includes(attempt)) setErrors(errors + 1);
+    // debug-friendly setAttempts com log
+    setAttempts((prev) => {
+      const next = [...prev, attempt];
+      console.log(
+        "Forca: attempts ->",
+        next,
+        "errors ->",
+        errors,
+        "word ->",
+        word
+      );
+      return next;
+    });
+    if (!word.includes(attempt)) setErrors((prev) => prev + 1);
     setInput("");
   }
 
@@ -113,6 +125,31 @@ export default function Forca() {
   return (
     <div className={styles.forcaContainer}>
       <h2 className={styles.forcaTitle}>Jogo da Forca</h2>
+      <div className={styles.forcaDrawing}>
+        <div className={styles.forcaBase}></div>
+        <div className={styles.forcaPole}></div>
+        <div className={styles.forcaTop}></div>
+        <div className={styles.forcaRope}></div>
+
+        <div
+          className={`${styles.head} ${errors > 0 ? styles.visible : ""}`}
+        ></div>
+        <div
+          className={`${styles.body} ${errors > 1 ? styles.visible : ""}`}
+        ></div>
+        <div
+          className={`${styles.armLeft} ${errors > 2 ? styles.visible : ""}`}
+        ></div>
+        <div
+          className={`${styles.armRight} ${errors > 3 ? styles.visible : ""}`}
+        ></div>
+        <div
+          className={`${styles.legLeft} ${errors > 4 ? styles.visible : ""}`}
+        ></div>
+        <div
+          className={`${styles.legRight} ${errors > 5 ? styles.visible : ""}`}
+        ></div>
+      </div>
       <div className={styles.wordDisplay}>{displayWord}</div>
       {isWinner && (
         <div className={styles.victoryMessage}>Parabéns! Você venceu!</div>
@@ -172,3 +209,4 @@ export default function Forca() {
     </div>
   );
 }
+// ...existing code...
