@@ -3,23 +3,80 @@
 import { useState } from "react";
 import styles from "./forca.module.css";
 
-const WORD = "PORTFOLIO";
+const WORDS = [
+  "COMPUTADOR",
+  "ELEFANTE",
+  "JAVASCRIPT",
+  "PIRÂMIDE",
+  "REACT",
+  "ABACAXI",
+  "PYTHON",
+  "ALGORITMO",
+  "TECLADO",
+  "MONITOR",
+  "INTERNET",
+  "SOFTWARE",
+  "HARDWARE",
+  "PROGRAMA",
+  "VARIAVEL",
+  "FUNCAO",
+  "OBJETO",
+  "BANCO",
+  "DADOS",
+  "REDE",
+  "USUARIO",
+  "SENHA",
+  "TABELA",
+  "CODIGO",
+  "LOOP",
+  "CONDICAO",
+  "EVENTO",
+  "MODULO",
+  "PACOTE",
+  "FRAMEWORK",
+  "ABACATE",
+  "MONTANHA",
+  "CACHORRO",
+  "JARDIM",
+  "ESCOLA",
+  "VIOLINO",
+  "PIRATA",
+  "CIRCO",
+  "ELEFANTE",
+  "SORVETE",
+  "PRINCESA",
+  "AVIÃO",
+  "FANTASMA",
+  "LAGARTO",
+  "BORBOLETA",
+  "TAPETE",
+  "BICICLETA",
+  "CAMALEÃO",
+  "DESERTO",
+  "ESTRELA",
+];
 const MAX_ATTEMPTS = 6;
 
+function getRandomWord() {
+  const idx = Math.floor(Math.random() * WORDS.length);
+  return WORDS[idx];
+}
+
 export default function Forca() {
+  const [word, setWord] = useState(getRandomWord());
   const [attempts, setAttempts] = useState([]);
   const [input, setInput] = useState("");
   const [errors, setErrors] = useState(0);
   const [message, setMessage] = useState("");
 
-  const isWinner = WORD.split("").every((letter) => attempts.includes(letter));
+  const isWinner = word.split("").every((letter) => attempts.includes(letter));
   const isLoser = errors >= MAX_ATTEMPTS;
 
   function handleTry(e) {
     e.preventDefault();
     const attempt = input.toUpperCase();
 
-    if (!attempt.match(/^[A-Z]$/)) {
+    if (!attempt.match(/^[A-ZÁÀÂÃÉÈÊÍÏÓÔÕÖÚÇÑ]$/)) {
       setMessage("Digite apenas letras.");
       return;
     }
@@ -29,18 +86,19 @@ export default function Forca() {
     }
     setMessage("");
     setAttempts([...attempts, attempt]);
-    if (!WORD.includes(attempt)) setErrors(errors + 1);
+    if (!word.includes(attempt)) setErrors(errors + 1);
     setInput("");
   }
 
   function handleRestart() {
+    setWord(getRandomWord());
     setAttempts([]);
     setInput("");
     setErrors(0);
     setMessage("");
   }
 
-  const displayWord = WORD.split("").map((letter, idx) =>
+  const displayWord = word.split("").map((letter, idx) =>
     attempts.includes(letter) ? (
       <span key={idx} className={styles.letra}>
         {letter}
@@ -62,7 +120,7 @@ export default function Forca() {
       {isLoser && (
         <div className={styles.defeatMessage}>
           Você perdeu! A palavra era:{" "}
-          <span className={styles.wordReveal}>{WORD}</span>
+          <span className={styles.wordReveal}>{word}</span>
         </div>
       )}
       <form onSubmit={handleTry} className={styles.formForca}>
@@ -89,7 +147,7 @@ export default function Forca() {
           <span
             key={idx}
             className={
-              WORD.includes(letter)
+              word.includes(letter)
                 ? styles.correctAttempt
                 : styles.wrongAttempt
             }
