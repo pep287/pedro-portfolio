@@ -15,7 +15,7 @@ export default function Socials() {
       <View style={styles.socialsContainer}>
         <TouchableOpacity
           style={styles.socialButton}
-          onPress={() => openLink("https://github.com/PedroMends")}
+          onPress={() => openLink("https://github.com/pep287")}
         >
           <MaterialCommunityIcons name="github" size={28} color="#63b3ed" />
           <ThemedText style={styles.socialText}>GitHub</ThemedText>
@@ -23,7 +23,9 @@ export default function Socials() {
 
         <TouchableOpacity
           style={styles.socialButton}
-          onPress={() => openLink("https://linkedin.com/in/pedro-mota-mendes")}
+          onPress={() =>
+            openLink("https://www.linkedin.com/in/pedro-mota-mendes-011362328")
+          }
         >
           <MaterialCommunityIcons name="linkedin" size={28} color="#63b3ed" />
           <ThemedText style={styles.socialText}>LinkedIn</ThemedText>

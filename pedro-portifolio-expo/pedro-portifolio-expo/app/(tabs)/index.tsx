@@ -1,15 +1,9 @@
-import {
-  StyleSheet,
-  ScrollView,
-  Image,
-  View,
-  SafeAreaView,
-  StatusBar,
-} from "react-native";
+import { StyleSheet, ScrollView, SafeAreaView, StatusBar } from "react-native";
 import { ThemedText } from "@/components/ThemedText";
 import { ThemedView } from "@/components/ThemedView";
 import Socials from "@/components/Socials";
 import Languages from "@/components/Languages";
+import Avatar from "@/components/Avatar";
 
 export default function HomeScreen() {
   return (
@@ -25,12 +19,14 @@ export default function HomeScreen() {
             Pedro Mota Mendes
           </ThemedText>
 
-          <View style={styles.avatarContainer}>
-            <Image
-              source={require("@/assets/images/myimage.jpg")}
-              style={styles.avatar}
-            />
-          </View>
+          <Avatar
+            size={140}
+            borderWidth={3}
+            borderColor="#63b3ed"
+            scale={1}
+            verticalOffset={0}
+            horizontalOffset={0}
+          />
 
           <ThemedText style={styles.description}>
             Estudante do curso de Ciências da Computação na Universidade
@@ -60,7 +56,7 @@ const styles = StyleSheet.create({
   },
   scrollContent: {
     flexGrow: 1,
-    paddingBottom: 100, // Espaço para a tab bar
+    paddingBottom: 100,
   },
   content: {
     padding: 16,
@@ -72,16 +68,6 @@ const styles = StyleSheet.create({
     marginBottom: 16,
     textAlign: "center",
     color: "#63b3ed",
-  },
-  avatarContainer: {
-    marginVertical: 12,
-  },
-  avatar: {
-    width: 140,
-    height: 140,
-    borderRadius: 70,
-    borderWidth: 3,
-    borderColor: "#63b3ed",
   },
   description: {
     fontSize: 14,

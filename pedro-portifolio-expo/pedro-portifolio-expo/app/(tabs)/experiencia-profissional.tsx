@@ -1,46 +1,60 @@
-import { StyleSheet, ScrollView } from "react-native";
+import { StyleSheet, ScrollView, SafeAreaView } from "react-native";
 import { ThemedText } from "@/components/ThemedText";
 import { ThemedView } from "@/components/ThemedView";
+import ExperienciaProfissional from "@/components/ExperienciaProfissional";
 
 export default function ExperienciaProfissionalScreen() {
   return (
-    <ScrollView style={styles.container}>
-      <ThemedView style={styles.content}>
-        <ThemedText type="title" style={styles.title}>
-          Soft Skills
-        </ThemedText>
+    <SafeAreaView style={styles.safeArea}>
+      <ScrollView
+        style={styles.container}
+        contentContainerStyle={styles.scrollContent}
+        showsVerticalScrollIndicator={false}
+      >
+        <ThemedView style={styles.content}>
+          <ThemedText type="title" style={styles.title}>
+            Soft Skills
+          </ThemedText>
 
-        <ThemedView style={styles.card}>
-          <ThemedText style={styles.skill}>✓ Trabalho em equipe</ThemedText>
-          <ThemedText style={styles.skill}>✓ Proatividade</ThemedText>
-          <ThemedText style={styles.skill}>✓ Comunicação</ThemedText>
-          <ThemedText style={styles.skill}>✓ Adaptabilidade</ThemedText>
-          <ThemedText style={styles.skill}>✓ Resolução de Problemas</ThemedText>
+          <ThemedText style={styles.subtitle}>
+            Habilidades interpessoais que desenvolvi ao longo da minha jornada
+            acadêmica. Ainda não possuo experiência profissional, entretanto
+            estou me preparando para isso.
+          </ThemedText>
+
+          <ExperienciaProfissional />
         </ThemedView>
-      </ThemedView>
-    </ScrollView>
+      </ScrollView>
+    </SafeAreaView>
   );
 }
 
 const styles = StyleSheet.create({
+  safeArea: {
+    flex: 1,
+    backgroundColor: "#1a1d23",
+  },
   container: {
     flex: 1,
   },
+  scrollContent: {
+    flexGrow: 1,
+    paddingBottom: 100,
+  },
   content: {
-    padding: 20,
+    padding: 16,
   },
   title: {
-    fontSize: 28,
-    marginBottom: 20,
+    fontSize: 26,
+    marginBottom: 12,
     color: "#63b3ed",
+    textAlign: "center",
   },
-  card: {
-    backgroundColor: "#23272f",
-    padding: 20,
-    borderRadius: 10,
-  },
-  skill: {
-    fontSize: 16,
-    marginVertical: 8,
+  subtitle: {
+    fontSize: 14,
+    lineHeight: 21,
+    marginBottom: 20,
+    textAlign: "center",
+    opacity: 0.8,
   },
 });

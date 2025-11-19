@@ -1,22 +1,36 @@
-import { StyleSheet, ScrollView } from "react-native";
+import { StyleSheet, ScrollView, SafeAreaView } from "react-native";
 import Projects from "@/components/Projects";
 import { ThemedView } from "@/components/ThemedView";
 
 export default function ProjetosScreen() {
   return (
-    <ScrollView style={styles.container}>
-      <ThemedView style={styles.content}>
-        <Projects />
-      </ThemedView>
-    </ScrollView>
+    <SafeAreaView style={styles.safeArea}>
+      <ScrollView
+        style={styles.container}
+        contentContainerStyle={styles.scrollContent}
+        showsVerticalScrollIndicator={false}
+      >
+        <ThemedView style={styles.content}>
+          <Projects />
+        </ThemedView>
+      </ScrollView>
+    </SafeAreaView>
   );
 }
 
 const styles = StyleSheet.create({
+  safeArea: {
+    flex: 1,
+    backgroundColor: "#1a1d23",
+  },
   container: {
     flex: 1,
   },
+  scrollContent: {
+    flexGrow: 1,
+    paddingBottom: 100,
+  },
   content: {
-    padding: 20,
+    padding: 16,
   },
 });
