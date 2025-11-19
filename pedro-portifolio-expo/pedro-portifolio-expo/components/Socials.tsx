@@ -1,6 +1,6 @@
 import { StyleSheet, View, Linking, TouchableOpacity } from "react-native";
 import { ThemedText } from "./ThemedText";
-import { IconSymbol } from "./ui/IconSymbol";
+import { MaterialCommunityIcons } from "@expo/vector-icons";
 
 export default function Socials() {
   const openLink = (url: string) => {
@@ -15,17 +15,17 @@ export default function Socials() {
       <View style={styles.socialsContainer}>
         <TouchableOpacity
           style={styles.socialButton}
-          onPress={() => openLink("https://github.com/pep287")}
+          onPress={() => openLink("https://github.com/PedroMends")}
         >
-          <IconSymbol name="link" size={24} color="#63b3ed" />
+          <MaterialCommunityIcons name="github" size={28} color="#63b3ed" />
           <ThemedText style={styles.socialText}>GitHub</ThemedText>
         </TouchableOpacity>
 
         <TouchableOpacity
           style={styles.socialButton}
-          onPress={() => openLink("https://linkedin.com/in/seu-usuario")}
+          onPress={() => openLink("https://linkedin.com/in/pedro-mota-mendes")}
         >
-          <IconSymbol name="link" size={24} color="#63b3ed" />
+          <MaterialCommunityIcons name="linkedin" size={28} color="#63b3ed" />
           <ThemedText style={styles.socialText}>LinkedIn</ThemedText>
         </TouchableOpacity>
       </View>
@@ -35,28 +35,29 @@ export default function Socials() {
 
 const styles = StyleSheet.create({
   container: {
-    marginVertical: 20,
+    marginVertical: 16,
     width: "100%",
-    alignItems: "center",
   },
   title: {
-    marginBottom: 15,
+    marginBottom: 12,
     color: "#63b3ed",
+    textAlign: "center",
+    fontSize: 18,
   },
   socialsContainer: {
     flexDirection: "row",
     justifyContent: "center",
-    gap: 20,
+    gap: 12,
   },
   socialButton: {
     alignItems: "center",
-    padding: 15,
+    padding: 12,
     backgroundColor: "#23272f",
-    borderRadius: 10,
-    minWidth: 100,
+    borderRadius: 8,
+    width: 100,
   },
   socialText: {
-    marginTop: 8,
-    fontSize: 14,
+    marginTop: 6,
+    fontSize: 12,
   },
 });

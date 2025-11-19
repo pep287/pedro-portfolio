@@ -1,30 +1,36 @@
-import { StyleSheet, View, Text } from "react-native";
+import { StyleSheet, View } from "react-native";
 import { ThemedText } from "./ThemedText";
 import { ThemedView } from "./ThemedView";
-import { IconSymbol } from "./ui/IconSymbol";
+import { MaterialCommunityIcons } from "@expo/vector-icons";
 
 export default function Languages() {
   const languages = [
-    { name: "HTML5", icon: "code" },
-    { name: "CSS", icon: "code" },
-    { name: "JavaScript", icon: "code" },
-    { name: "React", icon: "code" },
-    { name: "C", icon: "code" },
-    { name: "Java", icon: "code" },
-    { name: "Python", icon: "code" },
+    { name: "JavaScript", icon: "language-javascript", color: "#f7df1e" },
+    { name: "TypeScript", icon: "language-typescript", color: "#3178c6" },
+    { name: "Python", icon: "language-python", color: "#3776ab" },
+    { name: "Java", icon: "language-java", color: "#007396" },
+    { name: "C", icon: "language-c", color: "#a8b9cc" },
+    { name: "HTML", icon: "language-html5", color: "#e34c26" },
+    { name: "CSS", icon: "language-css3", color: "#264de4" },
+    { name: "React", icon: "react", color: "#61dafb" },
+    { name: "React Native", icon: "react", color: "#61dafb" },
   ];
 
   return (
     <ThemedView style={styles.container}>
       <ThemedText type="subtitle" style={styles.title}>
-        Linguagens
+        Linguagens e Tecnologias
       </ThemedText>
       <View style={styles.languagesGrid}>
-        {languages.map((lang, idx) => (
-          <View key={idx} style={styles.languageItem}>
-            <IconSymbol name={lang.icon as any} size={20} color="#63b3ed" />
-            <ThemedText style={styles.languageText}>{lang.name}</ThemedText>
-          </View>
+        {languages.map((lang, index) => (
+          <ThemedView key={index} style={styles.languageCard}>
+            <MaterialCommunityIcons
+              name={lang.icon as any}
+              size={32}
+              color={lang.color}
+            />
+            <ThemedText style={styles.languageName}>{lang.name}</ThemedText>
+          </ThemedView>
         ))}
       </View>
     </ThemedView>
@@ -33,34 +39,33 @@ export default function Languages() {
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: "#23272f",
-    borderRadius: 10,
-    padding: 20,
-    marginVertical: 20,
+    marginVertical: 16,
     width: "100%",
   },
   title: {
-    textAlign: "center",
+    marginBottom: 12,
     color: "#63b3ed",
-    marginBottom: 15,
+    textAlign: "center",
+    fontSize: 18,
   },
   languagesGrid: {
     flexDirection: "row",
     flexWrap: "wrap",
     justifyContent: "center",
-    gap: 10,
-  },
-  languageItem: {
-    flexDirection: "row",
-    alignItems: "center",
-    backgroundColor: "#1a202c",
-    borderRadius: 8,
-    padding: 10,
     gap: 8,
-    minWidth: 100,
   },
-  languageText: {
-    fontSize: 14,
-    color: "#63b3ed",
+  languageCard: {
+    alignItems: "center",
+    justifyContent: "center",
+    padding: 8,
+    backgroundColor: "#23272f",
+    borderRadius: 8,
+    width: 95,
+    height: 75,
+  },
+  languageName: {
+    marginTop: 4,
+    fontSize: 10,
+    textAlign: "center",
   },
 });
