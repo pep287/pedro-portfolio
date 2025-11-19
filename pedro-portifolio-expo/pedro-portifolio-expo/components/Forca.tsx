@@ -12,7 +12,6 @@ import { ThemedView } from "./ThemedView";
 
 const { width: screenWidth, height: screenHeight } = Dimensions.get("window");
 const isSmallScreen = screenWidth < 380;
-const isMediumScreen = screenWidth >= 380 && screenWidth < 768;
 
 const WORDS = [
   "COMPUTADOR",
@@ -66,7 +65,6 @@ const WORDS = [
   "ESTRELA",
 ];
 const MAX_ATTEMPTS = 6;
-const WORD_DISPLAY_MARGIN_TOP = 60;
 
 function getRandomWord() {
   const idx = Math.floor(Math.random() * WORDS.length);
@@ -144,16 +142,17 @@ export default function Forca() {
         </View>
       </View>
 
-      <ScrollView
-        horizontal
-        showsHorizontalScrollIndicator={false}
-        contentContainerStyle={[
-          styles.wordDisplay,
-          { marginTop: WORD_DISPLAY_MARGIN_TOP },
-        ]}
-      >
-        {displayWord}
-      </ScrollView>
+      <View style={styles.wordDisplayWrapper}>
+        <View style={styles.wordDisplayCenter}>
+          <ScrollView
+            horizontal
+            showsHorizontalScrollIndicator={false}
+            contentContainerStyle={styles.wordDisplay}
+          >
+            {displayWord}
+          </ScrollView>
+        </View>
+      </View>
 
       {isWinner && (
         <ThemedText style={styles.victoryMessage}>
@@ -246,7 +245,7 @@ const styles = StyleSheet.create({
     marginBottom: isSmallScreen ? 15 : 20,
   },
   hangmanContainer: {
-    marginBottom: isSmallScreen ? 20 : 30,
+    marginBottom: isSmallScreen ? 25 : 35,
     backgroundColor: "#1a202c",
     padding: isSmallScreen ? 15 : 20,
     borderRadius: 10,
@@ -352,24 +351,30 @@ const styles = StyleSheet.create({
     transform: [{ rotate: "45deg" }],
     transformOrigin: "right",
   },
+  wordDisplayWrapper: {
+    width: "100%",
+    marginBottom: isSmallScreen ? 20 : 25,
+    height: isSmallScreen ? 45 : 55,
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  wordDisplayCenter: {
+    width: "100%",
+    alignItems: "center",
+  },
   wordDisplay: {
     flexDirection: "row",
     gap: isSmallScreen ? 6 : 8,
-    marginBottom: isSmallScreen ? 25 : 35,
     paddingHorizontal: 10,
-    minHeight: isSmallScreen ? 35 : 40,
+    alignItems: "center",
   },
   letra: {
     fontSize: isSmallScreen ? 24 : 28,
-    lineHeight: isSmallScreen ? 30 : 34,
     fontWeight: "bold",
     color: "#63b3ed",
     textAlign: "center",
     minWidth: isSmallScreen ? 18 : 20,
-    paddingHorizontal: 2,
-    includeFontPadding: false,
   },
-
   victoryMessage: {
     color: "#48bb78",
     fontWeight: "bold",
