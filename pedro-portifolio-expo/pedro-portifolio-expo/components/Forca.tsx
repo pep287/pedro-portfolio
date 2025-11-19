@@ -1,5 +1,11 @@
 import { useState } from "react";
-import { StyleSheet, View, TextInput, TouchableOpacity } from "react-native";
+import {
+  StyleSheet,
+  View,
+  TextInput,
+  TouchableOpacity,
+  ScrollView,
+} from "react-native";
 import { ThemedText } from "./ThemedText";
 import { ThemedView } from "./ThemedView";
 
@@ -55,6 +61,7 @@ const WORDS = [
   "ESTRELA",
 ];
 const MAX_ATTEMPTS = 6;
+const WORD_DISPLAY_MARGIN_TOP = 60;
 
 function getRandomWord() {
   const idx = Math.floor(Math.random() * WORDS.length);
@@ -108,38 +115,40 @@ export default function Forca() {
     )
   );
 
-  // Desenho do boneco da forca
-  const hangmanParts = [
-    errors > 0, // cabeça
-    errors > 1, // corpo
-    errors > 2, // braço esquerdo
-    errors > 3, // braço direito
-    errors > 4, // perna esquerda
-    errors > 5, // perna direita
-  ];
-
   return (
     <ThemedView style={styles.forcaContainer}>
       <ThemedText type="title" style={styles.forcaTitle}>
         Jogo da Forca
       </ThemedText>
 
-      {/* Desenho simplificado do boneco */}
       <View style={styles.hangmanContainer}>
-        <ThemedText style={styles.hangmanText}>
-          {hangmanParts[0] ? "😵" : ""}
-          {"\n"}
-          {hangmanParts[1] ? "|" : ""}
-          {hangmanParts[2] ? "—" : " "}
-          {hangmanParts[1] ? "|" : ""}
-          {hangmanParts[3] ? "—" : " "}
-          {"\n"}
-          {hangmanParts[4] ? "/ " : "  "}
-          {hangmanParts[5] ? "\\" : " "}
-        </ThemedText>
+        <View style={styles.gallows}>
+          <View style={styles.base} />
+          <View style={styles.pole} />
+          <View style={styles.beam} />
+          <View style={styles.rope} />
+
+          <View style={styles.person}>
+            {errors > 0 && <View style={styles.head} />}
+            {errors > 1 && <View style={styles.body} />}
+            {errors > 2 && <View style={styles.leftArm} />}
+            {errors > 3 && <View style={styles.rightArm} />}
+            {errors > 4 && <View style={styles.leftLeg} />}
+            {errors > 5 && <View style={styles.rightLeg} />}
+          </View>
+        </View>
       </View>
 
-      <View style={styles.wordDisplay}>{displayWord}</View>
+      <ScrollView
+        horizontal
+        showsHorizontalScrollIndicator={false}
+        contentContainerStyle={[
+          styles.wordDisplay,
+          { marginTop: WORD_DISPLAY_MARGIN_TOP },
+        ]}
+      >
+        {displayWord}
+      </ScrollView>
 
       {isWinner && (
         <ThemedText style={styles.victoryMessage}>
@@ -185,7 +194,7 @@ export default function Forca() {
 
       <View style={styles.attemptsList}>
         <ThemedText style={styles.attemptsLabel}>
-          Tentativas anteriores:{" "}
+          Tentativas anteriores:
         </ThemedText>
         <View style={styles.attemptsGrid}>
           {attempts.map((letter, idx) => (
@@ -223,8 +232,6 @@ const styles = StyleSheet.create({
     padding: 20,
     alignItems: "center",
     width: "100%",
-    maxWidth: 400,
-    alignSelf: "center",
   },
   forcaTitle: {
     fontSize: 24,
@@ -233,40 +240,136 @@ const styles = StyleSheet.create({
     marginBottom: 20,
   },
   hangmanContainer: {
-    marginBottom: 20,
+    marginBottom: 30,
     backgroundColor: "#1a202c",
-    padding: 15,
+    padding: 20,
     borderRadius: 10,
-    minHeight: 100,
+    height: 200,
+    width: "100%",
+    maxWidth: 300,
     justifyContent: "center",
     alignItems: "center",
   },
-  hangmanText: {
-    fontSize: 24,
-    fontFamily: "monospace",
-    textAlign: "center",
-    lineHeight: 30,
-    color: "#ededed",
+  gallows: {
+    position: "relative",
+    width: 150,
+    height: 180,
+  },
+  base: {
+    position: "absolute",
+    bottom: 0,
+    left: 0,
+    width: 100,
+    height: 4,
+    backgroundColor: "#8B4513",
+  },
+  pole: {
+    position: "absolute",
+    bottom: 0,
+    left: 20,
+    width: 4,
+    height: 176,
+    backgroundColor: "#8B4513",
+  },
+  beam: {
+    position: "absolute",
+    top: 0,
+    left: 0,
+    width: 90,
+    height: 4,
+    backgroundColor: "#8B4513",
+  },
+  rope: {
+    position: "absolute",
+    top: 4,
+    left: 86,
+    width: 2,
+    height: 20,
+    backgroundColor: "#D2691E",
+  },
+  person: {
+    position: "absolute",
+    top: 24,
+    left: 70,
+  },
+  head: {
+    width: 30,
+    height: 30,
+    borderRadius: 15,
+    borderWidth: 3,
+    borderColor: "#e53e3e",
+    backgroundColor: "transparent",
+  },
+  body: {
+    width: 3,
+    height: 50,
+    backgroundColor: "#e53e3e",
+    marginLeft: 13.5,
+  },
+  leftArm: {
+    position: "absolute",
+    top: 60,
+    left: -8,
+    width: 30,
+    height: 3,
+    backgroundColor: "#e53e3e",
+    transform: [{ rotate: "-45deg" }],
+    transformOrigin: "left",
+  },
+  rightArm: {
+    position: "absolute",
+    top: 60,
+    right: -8,
+    width: 30,
+    height: 3,
+    backgroundColor: "#e53e3e",
+    transform: [{ rotate: "45deg" }],
+    transformOrigin: "right",
+  },
+  leftLeg: {
+    position: "absolute",
+    top: 98,
+    left: -8,
+    width: 30,
+    height: 3,
+    backgroundColor: "#e53e3e",
+    transform: [{ rotate: "-45deg" }],
+    transformOrigin: "left",
+  },
+  rightLeg: {
+    position: "absolute",
+    top: 98,
+    right: -8,
+    width: 30,
+    height: 3,
+    backgroundColor: "#e53e3e",
+    transform: [{ rotate: "45deg" }],
+    transformOrigin: "right",
   },
   wordDisplay: {
     flexDirection: "row",
     gap: 8,
-    marginBottom: 20,
-    flexWrap: "wrap",
-    justifyContent: "center",
+    marginBottom: 35,
+    paddingHorizontal: 10,
+    minHeight: 40,
   },
   letra: {
     fontSize: 28,
+    lineHeight: 34,
     fontWeight: "bold",
     color: "#63b3ed",
-    minWidth: 20,
     textAlign: "center",
+    minWidth: 20,
+    paddingHorizontal: 2,
+    includeFontPadding: false,
   },
+
   victoryMessage: {
-    color: "#63b3ed",
+    color: "#48bb78",
     fontWeight: "bold",
     marginBottom: 15,
     fontSize: 18,
+    textAlign: "center",
   },
   defeatMessage: {
     color: "#e53e3e",
@@ -300,11 +403,6 @@ const styles = StyleSheet.create({
     borderRadius: 8,
     paddingVertical: 12,
     paddingHorizontal: 20,
-    shadowColor: "#000",
-    shadowOffset: { width: 0, height: 4 },
-    shadowOpacity: 0.12,
-    shadowRadius: 16,
-    elevation: 4,
   },
   buttonDisabled: {
     backgroundColor: "#555",
@@ -324,30 +422,36 @@ const styles = StyleSheet.create({
   attemptsList: {
     marginTop: 15,
     width: "100%",
+    paddingHorizontal: 10,
   },
   attemptsLabel: {
     fontWeight: "bold",
     color: "#f6e05e",
-    marginBottom: 8,
+    marginBottom: 10,
+    fontSize: 15,
   },
   attemptsGrid: {
     flexDirection: "row",
     flexWrap: "wrap",
-    gap: 8,
+    gap: 12,
   },
   correctAttempt: {
-    color: "#63b3ed",
+    color: "#48bb78",
     fontWeight: "bold",
-    fontSize: 16,
+    fontSize: 18,
+    minWidth: 20,
   },
   wrongAttempt: {
     color: "#e53e3e",
     fontWeight: "bold",
-    fontSize: 16,
+    fontSize: 18,
+    textDecorationLine: "line-through",
+    minWidth: 20,
   },
   remainingAttempts: {
     marginTop: 15,
     fontWeight: "bold",
     color: "#f6e05e",
+    fontSize: 15,
   },
 });
