@@ -20,14 +20,15 @@ export default function Home() {
           />
         </div>
         <p className={styles.description}>
-          Estudante do curso de Ciências da Computação na Universidade Católica
-          de Pernambuco. Sou apaixonado por tecnologia, principalmente por
-          desenvolvimento web. Tenho experiência em HTML, CSS, Javascript e
-          React, além de conhecimentos em linguagens como C, Java e Python. Meu
-          trunfo é a minha adaptabilidade e vontade de aprender coisas novas,
-          além de ter boa proatividade e facilidade de trabalhar em equipe.
+          Estudante de Ciência da Computação na Universidade Católica de
+          Pernambuco (UNICAP). Apaixonado por tecnologia, com experiência em
+          desenvolvimento web e mobile usando JavaScript, React e React Native,
+          além de sólidos conhecimentos em C, C++, C#, Java, Python e SQL.
+          Familiarizado com metodologias Agile e trabalho em equipe, sempre
+          buscando aprender e evoluir na área de software.
         </p>
       </section>
+
       <section className={styles.sectionsWrapper}>
         <div className={styles.socials}>
           <Socials />
@@ -39,6 +40,7 @@ export default function Home() {
           <Projects />
         </div>
       </section>
+
       <div className={styles.forcaButtonWrapper}>
         <Link href="/forca" passHref>
           <button className={styles.forcaButton}>

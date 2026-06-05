@@ -6,42 +6,35 @@ import {
   FaCss3Alt,
   FaJsSquare,
   FaReact,
+  FaDatabase,
 } from "react-icons/fa";
-import { SiC } from "react-icons/si";
+import { SiC, SiCplusplus, SiSharp, SiReactos } from "react-icons/si";
+
+const languages = [
+  { icon: <FaHtml5 />, label: "HTML5" },
+  { icon: <FaCss3Alt />, label: "CSS3" },
+  { icon: <FaJsSquare />, label: "JavaScript" },
+  { icon: <FaReact />, label: "React" },
+  { icon: <SiReactos />, label: "React Native" },
+  { icon: <SiC />, label: "C" },
+  { icon: <SiCplusplus />, label: "C++" },
+  { icon: <SiSharp />, label: "C#" },
+  { icon: <FaJava />, label: "Java" },
+  { icon: <FaPython />, label: "Python" },
+  { icon: <FaDatabase />, label: "SQL" },
+];
 
 export default function Languages() {
   return (
     <section className={style.Languages}>
-      <h1 className={style.title}>Linguagens</h1>
-
+      <h2 className={style.title}>Linguagens & Tecnologias</h2>
       <ul className={style.listLanguages}>
-        <li className={style.li}>
-          <FaHtml5 className={style.icon} />
-          HTML5
-        </li>
-        <li className={style.li}>
-          <FaCss3Alt className={style.icon} />
-          CSS
-        </li>
-        <li className={style.li}>
-          <FaJsSquare className={style.icon} />
-          JavaScript
-        </li>
-        <li className={style.li}>
-          <FaReact className={style.icon} />
-          React
-        </li>
-        <li className={style.li}>
-          <SiC className={style.icon} />C
-        </li>
-        <li className={style.li}>
-          <FaJava className={style.icon} />
-          Java
-        </li>
-        <li className={style.li}>
-          <FaPython className={style.icon} />
-          Python
-        </li>
+        {languages.map(({ icon, label }) => (
+          <li key={label} className={style.li}>
+            <span className={style.icon}>{icon}</span>
+            {label}
+          </li>
+        ))}
       </ul>
     </section>
   );
